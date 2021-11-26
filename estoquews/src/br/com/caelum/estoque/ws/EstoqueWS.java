@@ -5,14 +5,13 @@ import br.com.caelum.estoque.modelo.usuario.AutorizacaoException;
 import br.com.caelum.estoque.modelo.usuario.TokenDao;
 import br.com.caelum.estoque.modelo.usuario.TokenUsuario;
 
-import javax.jws.WebMethod;
-import javax.jws.WebParam;
-import javax.jws.WebResult;
-import javax.jws.WebService;
+import javax.jws.*;
+import javax.jws.soap.SOAPBinding;
 import javax.xml.ws.ResponseWrapper;
 import java.util.List;
 
 @WebService
+@SOAPBinding(style = SOAPBinding.Style.DOCUMENT, use = SOAPBinding.Use.LITERAL, parameterStyle = SOAPBinding.ParameterStyle.WRAPPED)
 public class EstoqueWS {
 
     private ItemDao dao = new ItemDao();
@@ -47,6 +46,12 @@ public class EstoqueWS {
 
         this.dao.cadastrar(item);
         return item;
+    }
+
+    @Oneway
+    @WebMethod(operationName="GerarRelatorio")
+    public void gerarRelatorio() {
+        // código omitido
     }
 
 }
